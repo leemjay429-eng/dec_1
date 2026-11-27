@@ -255,12 +255,13 @@ if(location.protocol==='file:'||location.hostname.indexOf('github.io')>-1){
 .contents_div .jgnw-armed .jgnw-glint::before{content:"";position:absolute;top:-20%;bottom:-20%;left:0;width:38%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.4),rgba(255,255,255,0));transform:translateX(-130%) skewX(-22deg);animation:jgnw-glint 3.9s cubic-bezier(.45,0,.25,1) 2.3s infinite}
 .contents_div .jgnw-armed .jgnw-badge{transform-origin:24% 57.4%;animation:jgnw-tick 3.9s ease-in-out 2.3s infinite}
 /* 달력 글자 : 이벤트 → 공모 → 체험 순환 */
-.contents_div .jgnw-hero .jgnw-ct-item{transition:opacity .5s ease,transform .6s cubic-bezier(.16,1,.3,1),filter .5s ease}
-.contents_div .jgnw-hero .jgnw-ct-item .jgnw-ct-ko{transition:translate .65s cubic-bezier(.16,1,.3,1) .06s}
-.contents_div .jgnw-armed .jgnw-ct-item{opacity:0!important;transform:translateY(45%);filter:blur(4px)}
-.contents_div .jgnw-armed .jgnw-ct-item.jgnw-ct-on{opacity:1!important;transform:none;filter:none}
-.contents_div .jgnw-armed .jgnw-ct-item.jgnw-ct-out{transform:translateY(-45%)}
-.contents_div .jgnw-armed .jgnw-ct-item:not(.jgnw-ct-on) .jgnw-ct-ko{translate:0 20%}
+/* 부드럽게 : 이동 폭·흐림을 줄이고, 나가는 글자가 먼저 옅어진 뒤 들어오는 글자가 살짝 늦게 겹쳐 올라옴 */
+.contents_div .jgnw-hero .jgnw-ct-item{transition:opacity .8s ease,transform 1s cubic-bezier(.22,1,.36,1),filter .8s ease}
+.contents_div .jgnw-hero .jgnw-ct-item .jgnw-ct-ko{transition:translate 1.05s cubic-bezier(.22,1,.36,1) .08s}
+.contents_div .jgnw-armed .jgnw-ct-item{opacity:0!important;transform:translateY(28%);filter:blur(2.5px)}
+.contents_div .jgnw-armed .jgnw-ct-item.jgnw-ct-on{opacity:1!important;transform:none;filter:none;transition:opacity .85s cubic-bezier(.4,0,.2,1) .15s,transform 1.05s cubic-bezier(.22,1,.36,1) .1s,filter .85s ease .15s}
+.contents_div .jgnw-armed .jgnw-ct-item.jgnw-ct-out{transform:translateY(-24%);transition:opacity .6s cubic-bezier(.4,0,.6,1),transform .85s cubic-bezier(.45,0,.55,1),filter .6s ease}
+.contents_div .jgnw-armed .jgnw-ct-item:not(.jgnw-ct-on) .jgnw-ct-ko{translate:0 12%}
 /* 별 : 회전하며 팝 → 반짝 */
 .contents_div .jgnw-armed .jgnw-star .jgnw-mv{transform-origin:73.63% 49.72%;animation:jgnw-star .9s cubic-bezier(.3,.7,.4,1) var(--jgnw-d) both,jgnw-twinkle 3.2s ease-in-out calc(var(--jgnw-d) + .9s) infinite}
 /* 구슬 */
@@ -1424,12 +1425,13 @@ if(location.protocol==='file:'||location.hostname.indexOf('github.io')>-1){
     function step(){
       var cur=items[idx],nx=items[(idx+1)%items.length];
       cur.classList.remove('jgnw-ct-on');cur.classList.add('jgnw-ct-out');
-      nx.classList.remove('jgnw-ct-out');nx.style.transition='none';nx.offsetWidth;nx.style.transition='';
+      var nk=nx.querySelector('.jgnw-ct-ko')||{style:{}};
+      nx.classList.remove('jgnw-ct-out');nx.style.transition=nk.style.transition='none';nx.offsetWidth;nx.style.transition=nk.style.transition='';
       nx.classList.add('jgnw-ct-on');
       idx=(idx+1)%items.length;
     }
-    /* 히어로모션 텍스트 등장 모션이 모두 끝나는 2.15초 + 1.9초 = 4.05초에 첫 전환, 이후 2.6초마다 */
-    setTimeout(function(){ step(); setInterval(step,2650); },2500);
+    /* 히어로모션 텍스트 등장 모션이 모두 끝나는 2.15초 + 1.9초 = 2.5초에 첫 전환, 이후 2.6초마다 */
+    setTimeout(function(){ step(); setInterval(step,2650); },2480);
   }
   hero.classList.add('jgnw-armed');
   void hero.offsetWidth;

@@ -414,7 +414,6 @@ if(location.protocol==='file:'||location.hostname.indexOf('github.io')>-1){
   --bnf-meta-off:calc(12px * 1.62 + 10px + 12px);   /* 칩 높이 + 칩 줄 아래 여백 */
   position:relative;float:right;margin:var(--bnf-meta-off) 0 14px 16px;
   shape-outside:inset(var(--bnf-meta-off) 0 0 0) margin-box;   /* 모바일 : 칩 줄은 아이콘 위로 지나가 한 줄 유지 */
-  /* 모바일 : 폭 기준. 제목 첫 줄('친환경자동차 오너라면?' ≈ 9.4em)이 아이콘 옆에 들어가도록 남는 폭만큼만 */
   height:auto;background:transparent;
   width:min(130px, calc(100cqw - var(--bnf-gut) * 2 - (clamp(16px, calc(1.6px + 5cqw), 22px) + 2px) * 9.4 - 16px));
 }
@@ -1429,8 +1428,8 @@ if(location.protocol==='file:'||location.hostname.indexOf('github.io')>-1){
       nx.classList.add('jgnw-ct-on');
       idx=(idx+1)%items.length;
     }
-    /* 등장 모션이 모두 끝나는 2.15초 + 1.9초 = 4.05초에 첫 전환, 이후 2.6초마다 */
-    setTimeout(function(){ step(); setInterval(step,2650); },2600);
+    /* 히어로모션 텍스트 등장 모션이 모두 끝나는 2.15초 + 1.9초 = 4.05초에 첫 전환, 이후 2.6초마다 */
+    setTimeout(function(){ step(); setInterval(step,2650); },2500);
   }
   hero.classList.add('jgnw-armed');
   void hero.offsetWidth;

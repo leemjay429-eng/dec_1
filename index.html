@@ -1425,7 +1425,7 @@ if(location.protocol==='file:'||location.hostname.indexOf('github.io')>-1){
       idx=(idx+1)%items.length;
     }
     /* 등장 모션이 모두 끝나는 2.15초 + 1.9초 = 4.05초에 첫 전환, 이후 2.4초마다 */
-    setTimeout(function(){ step(); setInterval(step,2400); },4050);
+    setTimeout(function(){ step(); setInterval(step,2400); },4000);
   }
   hero.classList.add('jgnw-armed');
   void hero.offsetWidth;
